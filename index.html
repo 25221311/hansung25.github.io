@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glow Beauty - Mỹ phẩm chính hãng</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#fff9fa;color:#44343a}
+header{background:#f5dce5;padding:22px 7%;display:flex;
+justify-content:space-between;align-items:center;flex-wrap:wrap}
+.logo{font-size:27px;font-weight:bold;color:#b64f78}
+nav a{margin:10px;color:#65414f;text-decoration:none}
+.hero{padding:65px 8%;background:linear-gradient(120deg,#f9e2eb,#fff4f6);
+text-align:center}
+.hero h1{font-size:40px;color:#a8426a;margin-bottom:15px}
+.hero p{font-size:17px;line-height:1.7}
+.hero button,.buy{background:#c65b83;color:white;border:0;
+padding:12px 22px;border-radius:25px;cursor:pointer;margin-top:18px}
+section{padding:45px 7%}
+h2{text-align:center;color:#a8426a;margin-bottom:25px}
+.filters{text-align:center;margin-bottom:25px}
+.filters input,.filters select{padding:11px;border:1px solid #e6bdcd;
+border-radius:10px;margin:5px;background:white}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+.card{background:white;border-radius:15px;overflow:hidden;
+box-shadow:0 4px 15px #e9cbd5;padding-bottom:18px}
+.card img{width:100%;height:210px;object-fit:cover}
+.card h3,.card p,.card .price{margin:12px 15px}
+.card p{font-size:14px;line-height:1.5;color:#755e66}
+.price{color:#c34d79;font-size:19px;font-weight:bold}
+.old{text-decoration:line-through;color:#999;font-size:14px}
+.card button{margin-left:15px}
+.benefits{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
+.benefit{background:#f9e5ed;padding:25px;border-radius:12px;text-align:center}
+footer{text-align:center;padding:30px;background:#f4dce5;line-height:2}
+.cart{position:fixed;right:18px;bottom:18px;background:#bd4f79;
+color:white;border-radius:30px;padding:15px 22px}
+@media(max-width:600px){.hero h1{font-size:29px}header{justify-content:center;gap:10px}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">🌸 GLOW BEAUTY</div>
+<nav>
+<a href="#">Trang chủ</a>
+<a href="#products">Sản phẩm</a>
+<a href="#benefits">Công dụng</a>
+<a href="#contact">Liên hệ</a>
+</nav>
+</header>
+
+<div class="hero">
+<h1>Đánh thức vẻ đẹp tự nhiên</h1>
+<p>Mỹ phẩm chăm sóc da – Chất lượng tốt, giá cả hợp lý.<br>
+Chọn sản phẩm phù hợp với làn da và ngân sách của bạn.</p>
+<button onclick="document.getElementById('products').scrollIntoView()">Khám phá sản phẩm</button>
+</div>
+
+<section id="benefits">
+<h2>Mua sắm theo công dụng</h2>
+<div class="benefits">
+<div class="benefit">💧<h3>Dưỡng ẩm</h3><p>Hỗ trợ cấp ẩm cho da</p></div>
+<div class="benefit">✨<h3>Làm sáng</h3><p>Hỗ trợ cải thiện vẻ ngoài của da</p></div>
+<div class="benefit">☀️<h3>Chống nắng</h3><p>Bảo vệ da trước tia UV</p></div>
+<div class="benefit">🌿<h3>Làm sạch</h3><p>Làm sạch bụi bẩn và dầu thừa</p></div>
+</div>
+</section>
+
+<section id="products">
+<h2>Sản phẩm nổi bật</h2>
+<div class="filters">
+<input id="search" placeholder="Tìm tên mỹ phẩm..." oninput="render()">
+<select id="effect" onchange="render()">
+<option value="">Tất cả công dụng</option>
+<option>Dưỡng ẩm</option>
+<option>Làm sáng</option>
+<option>Chống nắng</option>
+<option>Làm sạch</option>
+</select>
+<select id="sort" onchange="render()">
+<option value="">Sắp xếp giá</option>
+<option value="asc">Giá thấp đến cao</option>
+<option value="desc">Giá cao đến thấp</option>
+</select>
+</div>
+<div class="products" id="productList"></div>
+</section>
+
+<section>
+<h2>Vì sao chọn Glow Beauty?</h2>
+<div class="benefits">
+<div class="benefit">💗<h3>Giá hợp lý</h3><p>Nhiều lựa chọn theo ngân sách</p></div>
+<div class="benefit">🌷<h3>Thông tin rõ ràng</h3><p>Hiển thị giá và công dụng</p></div>
+<div class="benefit">📦<h3>Đặt hàng dễ dàng</h3><p>Liên hệ nhanh chóng</p></div>
+</div>
+</section>
+
+<footer id="contact">
+<h3>🌸 GLOW BEAUTY</h3>
+<p>Chăm sóc vẻ đẹp của bạn mỗi ngày</p>
+<p>Hotline: 09xx xxx xxx</p>
+<p>Email: glowbeauty@example.com</p>
+<p>© 2026 Glow Beauty</p>
+</footer>
+
+<div class="cart" id="cart">🛒 Giỏ hàng: 0</div>
+
+<script>
+const products=[
+{name:"Serum cấp ẩm",effect:"Dưỡng ẩm",price:189000,old:250000,
+desc:"Hỗ trợ cấp ẩm, giúp da mềm mại.",
+img:"https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500"},
+{name:"Kem dưỡng sáng da",effect:"Làm sáng",price:259000,old:320000,
+desc:"Hỗ trợ cải thiện vẻ rạng rỡ của làn da.",
+img:"https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=500"},
+{name:"Kem chống nắng",effect:"Chống nắng",price:199000,old:240000,
+desc:"Hỗ trợ bảo vệ da trước tia UV.",
+img:"https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=500"},
+{name:"Sữa rửa mặt",effect:"Làm sạch",price:129000,old:170000,
+desc:"Giúp làm sạch bụi bẩn và dầu thừa.",
+img:"https://images.unsplash.com/photo-1556228720-195a672e8a03?w=500"},
+{name:"Kem dưỡng ẩm",effect:"Dưỡng ẩm",price:219000,old:280000,
+desc:"Giúp duy trì độ ẩm cho làn da.",
+img:"https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=500"},
+{name:"Serum làm sáng",effect:"Làm sáng",price:299000,old:350000,
+desc:"Hỗ trợ cải thiện sắc da không đều màu.",
+img:"https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500"}
+];
+
+let count=0;
+function money(n){return n.toLocaleString("vi-VN")+"đ"}
+
+function render(){
+let list=products.filter(p=>
+p.name.toLowerCase().includes(document.getElementById("search").value.toLowerCase())&&
+(!document.getElementById("effect").value||
+p.effect===document.getElementById("effect").value)
+);
+let sort=document.getElementById("sort").value;
+if(sort==="asc")list.sort((a,b)=>a.price-b.price);
+if(sort==="desc")list.sort((a,b)=>b.price-a.price);
+
+document.getElementById("productList").innerHTML=list.map(p=>`
+<div class="card">
+<img src="${p.img}" alt="${p.name}">
+<h3>${p.name}</h3>
+<p>🌸 Công dụng: ${p.desc}</p>
+<p>Danh mục: ${p.effect}</p>
+<div class="price">${money(p.price)}
+<span class="old">${money(p.old)}</span></div>
+<button class="buy" onclick="addCart()">Thêm vào giỏ</button>
+</div>`).join("");
+}
+function addCart(){
+count++;
+document.getElementById("cart").innerText="🛒 Giỏ hàng: "+count;
+}
+render();
+</script>
+</body>
+</html>
